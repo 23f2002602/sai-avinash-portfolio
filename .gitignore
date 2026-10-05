@@ -1,0 +1,9 @@
+node_modules/
+.next/
+.next-verify*/
+.vercel/
+out/
+output/
+*.tsbuildinfo
+.env*
+!.env.example

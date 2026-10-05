@@ -1,0 +1,91 @@
+.curiosity-atlas { position: relative; background: #101010; color: #eee; padding: 90px 4vw 45px; overflow: clip; --thread-progress: 0; }
+.curiosity-intro { position: relative; padding: 0 3vw; display: grid; grid-template-columns: 1.3fr 1fr; align-items: end; column-gap: 7vw; }
+.curiosity-intro > .micro { grid-column: 1 / -1; color: #aaa; margin-bottom: 30px; }
+.curiosity-intro h2 { font: 700 clamp(52px, 6.3vw, 100px)/1.04 var(--sans); letter-spacing: -.07em; margin: 0; }
+.curiosity-intro h2 em { font-family: var(--serif); font-weight: 400; }
+.curiosity-aside { grid-column: 1; font: 30px var(--hand); margin: 14px 0 0; color: #c6c6c6; transform: rotate(-3deg); }
+.curiosity-copy { grid-column: 2; grid-row: 2 / 4; max-width: 33ch; color: #b3b3b3; line-height: 1.8; font-size: 16px; margin: 0 0 10px; border-left: 1px solid #aaa; padding-left: 24px; }
+.curiosity-universe { position: relative; height: 800px; margin-top: 70px; isolation: isolate; }
+.curiosity-thread { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; color: #aaa; opacity: .48; }
+.curiosity-thread path { stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--thread-progress)); }
+.curiosity-runner { position: absolute; left: var(--runner-x, 18%); top: var(--runner-y, 55%); width: 80px; height: 165px; transform: translate(-50%, -100%); z-index: 1; pointer-events: none; user-select: none; }
+.curiosity-runner-figure { position: relative; width: 100%; height: 100%; transform: rotate(var(--runner-lean, -4deg)); transform-origin: 50% 100%; }
+.curiosity-runner img { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 100%; width: auto; opacity: 0; filter: grayscale(1) brightness(1.35) drop-shadow(1px 0 0 #ddd) drop-shadow(-1px 0 0 #ddd) drop-shadow(0 1px 0 #ddd); }
+.curiosity-runner[data-pose="1"] img:nth-child(1), .curiosity-runner[data-pose="2"] img:nth-child(2), .curiosity-runner[data-pose="3"] img:nth-child(3) { opacity: 1; }
+.curiosity-runner > span { position: absolute; top: 100%; left: 50%; white-space: nowrap; font: 20px var(--hand); color: #aaa; transform: translate(-50%, 5px) rotate(-7deg); }
+.curiosity-objects { position: relative; height: 100%; z-index: 2; }
+.curiosity-center { position: absolute; top: 33%; left: 33%; width: 35%; padding: 25px 20px; z-index: 3; background: radial-gradient(ellipse, #101010 60%, #10101000 100%); }
+.curiosity-center > .micro { font-size: 9px; color: #aaa; }
+.curiosity-center h3 { font: 500 clamp(32px, 3.4vw, 53px)/1.08 var(--serif); margin: 14px 0 18px; letter-spacing: -.045em; }
+.curiosity-center > p:not(.micro) { color: #bbb; font-size: 15px; line-height: 1.7; max-width: 35ch; min-height: 100px; }
+.curiosity-hand { display: block; font: 25px var(--hand); color: #ddd; transform: rotate(-3deg); margin-top: 15px; }
+.curiosity-item { position: absolute; width: 15%; padding: 0 5px 10px; border: 0; color: #bcbcbc; background: transparent; cursor: pointer; text-align: center; -webkit-tap-highlight-color: transparent; }
+.curiosity-object-wrap { display: block; position: relative; height: 160px; transform: rotate(var(--lean)); transition: transform .65s cubic-bezier(.2,1.7,.4,1), filter .5s; filter: drop-shadow(0 16px 8px #0007); }
+.interest-object { width: 100%; height: 100%; overflow: visible; animation: curiosity-float 6s ease-in-out infinite; animation-delay: var(--float-delay); }
+.curiosity-item:hover .curiosity-object-wrap, .curiosity-item:focus-visible .curiosity-object-wrap { transform: translateY(-15px) rotate(calc(var(--lean) * -1)) scale(1.12); filter: drop-shadow(0 26px 15px #000b); }
+.curiosity-item[aria-pressed="true"] .curiosity-object-wrap { transform: translateY(-7px) rotate(0deg) scale(1.08); }
+.curiosity-label { display: inline-block; font: 22px var(--hand); padding: 3px 9px; line-height: 1.1; border-bottom: 1px solid transparent; }
+.curiosity-item[aria-pressed="true"] .curiosity-label { color: #fff; border-color: #eee; }
+.curiosity-item:hover .curiosity-label { color: white; }
+.curiosity-next { display: block; font: 7px var(--mono); letter-spacing: .12em; text-transform: uppercase; margin-top: 7px; color: #aaa; }
+.curiosity-item-0 { left: 2%; top: 1%; }
+.curiosity-item-1 { left: 23%; top: 0; }
+.curiosity-item-2 { left: 44%; top: 2%; }
+.curiosity-item-3 { left: 65%; top: 0; }
+.curiosity-item-4 { left: 84%; top: 8%; }
+.curiosity-item-5 { left: 3%; top: 36%; }
+.curiosity-item-6 { left: 83%; top: 40%; }
+.curiosity-item-7 { left: 8%; top: 71%; }
+.curiosity-item-8 { left: 30%; top: 73%; }
+.curiosity-item-9 { left: 58%; top: 73%; }
+.curiosity-item-10 { left: 80%; top: 73%; }
+.curiosity-footer { display: flex; align-items: center; justify-content: space-between; gap: 30px; border-top: 1px solid #ffffff38; padding: 28px 3vw 0; }
+.curiosity-footer > span { font: 25px var(--hand); max-width: 24ch; }
+.curiosity-footer p { color: #aaa; line-height: 1.6; font-size: 12px; }
+.curiosity-footer a { font: 11px var(--mono); border-bottom: 1px solid #777; padding: 12px 0; }
+.object-steam { animation: steam-rise 3s ease-in-out infinite; transform-origin: center; }
+@keyframes curiosity-float { 0%, 100% { translate: 0 0; rotate: -2deg; } 50% { translate: 0 -9px; rotate: 2deg; } }
+@keyframes steam-rise { 0%, 100% { opacity: .3; translate: 0 3px; } 50% { opacity: .8; translate: 0 -4px; } }
+@media (max-width: 1100px) {
+  .site-header nav { gap: 18px; margin-left: 0; }
+  .curiosity-universe { height: 740px; }
+  .curiosity-object-wrap { height: 130px; }
+  .curiosity-center { left: 28%; width: 46%; }
+  .curiosity-center > p:not(.micro) { font-size: 14px; }
+}
+@media (max-width: 760px) {
+  .site-header nav a:nth-child(2), .site-header nav a:nth-child(3), .site-header nav a:nth-child(4) { display: none; }
+  .curiosity-atlas { padding: 60px 6vw 35px; }
+  .curiosity-intro { display: block; padding: 0; }
+  .curiosity-intro > .micro { font-size: 8px; }
+  .curiosity-intro h2 { font-size: clamp(43px, 10.8vw, 76px); }
+  .curiosity-aside { font-size: 26px; margin: 20px 0 25px; }
+  .curiosity-copy { font-size: 14px; max-width: 45ch; padding-left: 16px; margin-top: 30px; }
+  .curiosity-universe { height: auto; margin-top: 35px; display: flex; flex-direction: column; }
+  .curiosity-center { position: sticky; top: 68px; width: 100%; padding: 14px 12px 18px; background: #151515f5; border: 1px solid #ffffff30; backdrop-filter: blur(16px); }
+  .curiosity-center > .micro { font-size: 8px; margin: 0; }
+  .curiosity-center h3 { font-size: 32px; margin: 9px 0; }
+  .curiosity-center > p:not(.micro) { font-size: 12px; line-height: 1.6; min-height: 58px; max-width: none; margin: 0; }
+  .curiosity-hand { font-size: 20px; margin-top: 10px; }
+  .curiosity-objects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 25px 8px; padding: 35px 0; }
+  .curiosity-runner { left: auto; top: auto; right: 0; bottom: 65px; width: calc((100% - 16px) / 3); height: 125px; transform: none; }
+  .curiosity-runner > span { font-size: 18px; }
+  .curiosity-item { position: relative; inset: auto; width: 100%; padding: 0 0 10px; }
+  .curiosity-object-wrap { height: 110px; }
+  .curiosity-label { font-size: 19px; padding: 5px 2px; min-height: 32px; }
+  .curiosity-next { font-size: 6px; letter-spacing: .04em; }
+  .curiosity-thread { top: 150px; height: calc(100% - 150px); opacity: .2; }
+  .curiosity-footer { display: block; padding: 25px 0 0; }
+  .curiosity-footer > span { font-size: 24px; }
+  .curiosity-footer p { margin-block: 20px; }
+  .curiosity-footer a { display: inline-block; }
+}
+@media (max-width: 370px) {
+  .curiosity-object-wrap { height: 90px; }
+  .curiosity-label { font-size: 17px; }
+  .curiosity-center h3 { font-size: 28px; }
+  .curiosity-center > p:not(.micro) { min-height: 76px; }
+}
+[data-motion="still"] .curiosity-item:hover .curiosity-object-wrap, [data-motion="still"] .curiosity-item:focus-visible .curiosity-object-wrap { transform: none; }
+@media (prefers-reduced-motion: reduce) { .curiosity-item:hover .curiosity-object-wrap, .curiosity-item:focus-visible .curiosity-object-wrap { transform: none; } }
+

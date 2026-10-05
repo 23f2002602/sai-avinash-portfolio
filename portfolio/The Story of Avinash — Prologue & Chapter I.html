@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Avinash — A Story</title>
+<meta name="description" content="Builder. Observer. Storyteller. Data Science at IIT Madras.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0A0A0A;--g1:#1c1c1b;--g2:#4a4946;--g3:#8a8884;--g4:#c9c7c2;--paper:#F2F0EB;
+--serif:'Instrument Serif',Georgia,serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:13px;line-height:1.6;overflow-x:hidden}
+@media(pointer:fine){body,a,button{cursor:none}}
+.grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+.dot{position:fixed;top:0;left:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#fff;mix-blend-mode:difference;z-index:100;pointer-events:none}
+@media(pointer:coarse){.dot{display:none}}
+.label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--g3)}
+.mask{display:block;overflow:hidden}.mask>span{display:inline-block}
+/* preloader */
+#pre{position:fixed;inset:0;z-index:95;background:var(--paper);color:var(--ink);display:flex;align-items:flex-end;justify-content:space-between;padding:4vw}
+#pre .n{font-family:var(--serif);font-size:18vw;line-height:.8;letter-spacing:-.04em}
+/* hero */
+.hero{min-height:100vh;min-height:100svh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:6vw 4vw 4vw;overflow:hidden}
+.portrait{position:absolute;right:6vw;top:12vh;width:min(34vw,380px);aspect-ratio:3/4;overflow:hidden;background:linear-gradient(160deg,var(--g2),var(--g1) 60%,#000)}
+.portrait .ph{position:absolute;inset:-12% 0;display:grid;place-items:center;filter:grayscale(1) contrast(1.3);color:var(--g3);font-size:11px;letter-spacing:.2em}
+.portrait img{position:absolute;inset:-12% 0;width:100%;height:124%;object-fit:cover;filter:grayscale(1) contrast(1.3)}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(64px,22vw,340px);line-height:.85;letter-spacing:-.05em;position:relative;z-index:2}
+.hero .tag{font-family:var(--serif);font-size:clamp(22px,3.4vw,44px);margin-top:3vw;position:relative;z-index:2}
+.hero .sub{color:var(--g3);max-width:46ch;margin-top:1rem;position:relative;z-index:2}
+.cue{position:absolute;bottom:4vw;right:4vw;display:flex;gap:.8rem;align-items:center}
+.cue i{display:block;width:1px;height:48px;background:var(--g3);transform-origin:top;animation:cue 2s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+/* chapter I (inverted) */
+.ch{background:var(--paper);color:var(--ink);padding:14vw 4vw 12vw;position:relative}
+.ch .label{color:var(--g2);border-top:1px solid var(--g4);padding-top:1rem;display:flex;justify-content:space-between}
+.ch h2{font-family:var(--serif);font-weight:400;font-size:clamp(48px,11vw,170px);line-height:.9;letter-spacing:-.04em;margin:4vw 0 3vw}
+.ch .lead{font-family:var(--serif);font-size:clamp(22px,2.6vw,38px);line-height:1.2;max-width:26ch}
+.ch .lead span{display:block;overflow:hidden}.ch .lead em{display:inline-block;font-style:italic}
+.ch .quiet{color:var(--g2);max-width:48ch;margin-top:1.5rem}
+.ch2{display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:end}
+.p2{aspect-ratio:4/5;background:linear-gradient(200deg,var(--g3),var(--g1));filter:grayscale(1) contrast(1.2);clip-path:inset(0 0 100% 0);display:grid;place-items:center;color:var(--paper);font-size:11px;letter-spacing:.2em;overflow:hidden}
+.p2 img{width:100%;height:100%;object-fit:cover}
+/* field notes */
+.notes{margin-top:10vw}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.5rem;perspective:1400px}
+.card{position:relative;aspect-ratio:4/5;background:none;border:0;text-align:left;font:inherit;color:inherit;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.7,.1,1)}
+.card[aria-pressed=true]{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;padding:1.4rem;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--ink);display:flex;flex-direction:column;justify-content:space-between}
+.front{background:var(--paper)}.back{background:var(--ink);color:var(--paper);transform:rotateY(180deg)}
+.front b{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.6vw,38px);line-height:1;letter-spacing:-.02em}
+.back p{font-size:13px;min-height:6em}.back p::after{content:"▍";animation:bl 1s steps(1) infinite}@keyframes bl{50%{opacity:0}}
+.no{color:var(--g3)}
+/* skill signal */
+.signal{margin-top:10vw;display:grid;gap:3rem}
+.sig .row{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.sig h3{font-family:var(--serif);font-weight:400;font-size:clamp(24px,3vw,44px);letter-spacing:-.02em}
+.track{height:1px;background:var(--g4);margin:1rem 0;position:relative}
+.line{position:absolute;left:0;top:0;height:1px;width:100%;background:var(--ink);transform-origin:left;transform:scaleX(0)}
+.cap{position:absolute;top:-4px;width:9px;height:9px;border-radius:50%;background:var(--ink);left:0}
+.cap.pulse{animation:pl 1.6s ease-in-out infinite}@keyframes pl{50%{transform:scale(2.2);opacity:.3}}
+.sig p{color:var(--g2);max-width:60ch}
+@media(max-width:800px){.ch2{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.portrait{width:46vw;top:10vh}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
+</style></head>
+<body>
+<div class="grain" aria-hidden="true"></div><div class="dot" aria-hidden="true"></div>
+<div id="pre" aria-hidden="true"><span class="label" style="color:var(--g2)">Reel 01 — Loading</span><span class="n" id="cnt">0</span></div>
+
+<main>
+<section class="hero" id="hero">
+  <div class="portrait" role="img" aria-label="Portrait of Avinash, black and white">
+    <!-- Swap: replace .ph with <img src="/assets/avinash-1.jpg" alt="Portrait of Avinash"> -->
+    <div class="ph" id="par1">PHOTO 1</div>
+  </div>
+  <p class="label" style="position:absolute;top:4vw;left:4vw">Prologue</p>
+  <h1 aria-label="Avinash" id="name"></h1>
+  <p class="tag mask"><span id="tag"></span></p>
+  <p class="sub mask"><span id="sub"></span></p>
+  <div class="cue label"><span>Scroll to begin</span><i></i></div>
+</section>
+
+<section class="ch" id="ch1">
+  <p class="label"><span id="c1l"></span><span>01 / 06</span></p>
+  <div class="ch2">
+    <div>
+      <h2 id="c1t"></h2>
+      <div class="lead" id="c1lead"></div>
+      <p class="quiet" id="c1q"></p>
+    </div>
+    <div class="p2" id="p2" role="img" aria-label="Avinash, second portrait, black and white"><span>PHOTO 2</span></div>
+  </div>
+
+  <div class="notes">
+    <p class="label" id="fn"></p>
+    <div class="grid" id="cards"></div>
+  </div>
+
+  <div class="signal">
+    <p class="label">Skill Signal</p>
+    <div id="sigs"></div>
+  </div>
+</section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script>
+/* ===== CONTENT — edit everything here (move to content.js in the Vite build) ===== */
+const C={
+ name:"Avinash.",tag:"Builder. Observer. Storyteller.",
+ sub:"Data Science at IIT Madras, building at the intersection of technology and business.",
+ ch1:{label:"Chapter 01 — The Observer",title:"The Observer.",
+  lead:["He talks to strangers.","Then he studies <em>why</em> they say what they say."],
+  quiet:"Extrovert. Observational. Confident. A calculated risk taker. These are his own field notes — flip a card.",
+  notes:"Field Notes — six cards",
+  cards:[
+   ["Ownership","Owns the mistake, then fixes it.","Admitted a client-facing mistake and took responsibility, keeping the supervisor in the loop."],
+   ["Leadership","Breaks the loop.","When teams were divided, he gathers everyone's input and steers toward a middle ground."],
+   ["Calculated Risk","Bold, but never blind.","Saves a backup before scrapping work under a tight deadline."],
+   ["Thinking Style","Intuitive. Iterates by doing.","Used Google Forms to turn vague requirements into clear ones."],
+   ["Persistence","Asks early, solves together.","Prefers collaborative troubleshooting and early peer support over struggling alone."],
+   ["Still Editing","Talks easily. Polishing the delivery.","Naturally conversational, and working on crisper, more structured speaking with fewer fillers."]],
+  signals:[
+   {t:"Stakeholder Communication",s:"Strong",d:"Real client outreach at two startups, plus a C-level brief approach: summary first, then why, how, where, when.",live:false},
+   {t:"Agentic Workflows",s:"Theory → Practice",d:"Solid on prompting, LangChain, ReAct and prompt-injection basics. Now building hands-on with LangGraph and RAG.",live:true}]}
+};
+/* ===== helpers ===== */
+const $=s=>document.querySelector(s),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+gsap.registerPlugin(ScrollTrigger);
+// build DOM
+$('#name').innerHTML=[...C.name].map(c=>`<span class="mask" style="display:inline-block"><span class="l" style="display:inline-block">${c}</span></span>`).join('');
+$('#tag').textContent=C.tag;$('#sub').textContent=C.sub;
+const k=C.ch1;$('#c1l').textContent=k.label;$('#c1t').textContent=k.title;$('#c1q').textContent=k.quiet;$('#fn').textContent=k.notes;
+$('#c1lead').innerHTML=k.lead.map(l=>`<span><em class="ln">${l}</em></span>`).join('');
+$('#cards').innerHTML=k.cards.map((c,i)=>`<button class="card" aria-pressed="false" data-i="${i}" aria-label="${c[0]}: ${c[1]}. Press to reveal an example."><span class="face front"><span class="no label">0${i+1} — ${c[0]}</span><b>${c[1]}</b><span class="label">Flip →</span></span><span class="face back"><span class="no label">Field note</span><p></p><span class="label" style="color:var(--g3)">${c[0]}</span></span></button>`).join('');
+$('#sigs').innerHTML=k.signals.map(s=>`<div class="sig"><div class="row"><h3>${s.t}</h3><span class="label">${s.s}</span></div><div class="track"><div class="line"></div><div class="cap ${s.live?'pulse':''}"></div></div><p>${s.d}</p></div>`).join('');
+// smooth scroll
+if(!reduce&&window.Lenis){const lenis=new Lenis({lerp:.09});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}
+// cursor
+const dot=$('.dot');addEventListener('pointermove',e=>gsap.to(dot,{x:e.clientX,y:e.clientY,duration:.15}));
+document.querySelectorAll('button,a,.p2,.portrait').forEach(el=>{el.addEventListener('pointerenter',()=>gsap.to(dot,{scale:4,duration:.3}));el.addEventListener('pointerleave',()=>gsap.to(dot,{scale:1,duration:.3}))});
+// flip cards + typewriter
+let timers={};
+document.querySelectorAll('.card').forEach(b=>b.addEventListener('click',()=>{
+ const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);
+ const p=b.querySelector('.back p'),txt=k.cards[b.dataset.i][2];clearInterval(timers[b.dataset.i]);
+ if(!on){p.textContent='';return}
+ if(reduce){p.textContent=txt;return}
+ p.textContent='';let n=0;setTimeout(()=>{timers[b.dataset.i]=setInterval(()=>{p.textContent=txt.slice(0,++n);if(n>=txt.length)clearInterval(timers[b.dataset.i])},22)},350)}));
+// scroll animations
+function scrollAnims(){
+ gsap.to('#par1',{yPercent:12,ease:'none',scrollTrigger:{trigger:'#hero',scrub:true,start:'top top',end:'bottom top'}});
+ gsap.from('#ch1 h2',{yPercent:30,opacity:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:'#ch1 h2',start:'top 85%'}});
+ gsap.from('.ln',{yPercent:110,duration:1,stagger:.18,ease:'power3.out',scrollTrigger:{trigger:'#c1lead',start:'top 85%'}});
+ gsap.to('#p2',{clipPath:'inset(0 0 0% 0)',duration:1.4,ease:'power4.inOut',scrollTrigger:{trigger:'#p2',start:'top 85%'}});
+ gsap.from('.card',{y:40,opacity:0,stagger:.08,duration:.8,ease:'power2.out',scrollTrigger:{trigger:'#cards',start:'top 85%'}});
+ document.querySelectorAll('.sig').forEach((s,i)=>{
+  const live=k.signals[i].live,line=s.querySelector('.line'),cap=s.querySelector('.cap');
+  const to=live?.62:1;
+  gsap.to(line,{scaleX:to,ease:'none',scrollTrigger:{trigger:s,start:'top 85%',end:'top 35%',scrub:.6}});
+  gsap.to(cap,{left:to*100+'%',ease:'none',scrollTrigger:{trigger:s,start:'top 85%',end:'top 35%',scrub:.6}});
+ });
+}
+// preloader → hero
+function intro(){
+ const tl=gsap.timeline({onComplete:()=>{$('#pre').remove();scrollAnims()}});
+ tl.to('#pre',{yPercent:-100,duration:1.1,ease:'power4.inOut'})
+   .from('.l',{yPercent:110,stagger:.07,duration:1,ease:'power4.out'},'-=.5')
+   .from('.portrait',{clipPath:'inset(100% 0 0 0)',duration:1.2,ease:'power4.inOut'},'-=.9')
+   .from('#tag,#sub',{yPercent:110,stagger:.12,duration:.9,ease:'power3.out'},'-=.7');
+}
+if(reduce){$('#pre').remove();scrollAnims();$('#p2').style.clipPath='none'}
+else{const o={v:0};gsap.to(o,{v:100,duration:2.2,ease:'power2.inOut',onUpdate:()=>$('#cnt').textContent=Math.round(o.v),onComplete:intro})}
+</script>
+</body></html>
