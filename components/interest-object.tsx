@@ -1,10 +1,15 @@
 import { useId } from "react";
+import { interestAssets, interestAssetsReady, type InterestAssetKey } from "@/lib/themed-assets";
 
-export type InterestKind = "tech" | "business" | "editing" | "design" | "photo" | "video" | "writing" | "cooking" | "travel" | "finance" | "economics";
+export type InterestKind = InterestAssetKey;
 
 /** Original shaded objects, extending the portfolio's ink illustration style. */
 export function InterestObject({ kind }: { kind: InterestKind }) {
   const id = useId().replace(/:/g, "");
+  if (interestAssetsReady) {
+    const asset = interestAssets[kind];
+    return <img className={`interest-object interest-object-raster object-${kind}`} src={asset.src} width={asset.width} height={asset.height} alt="" loading="lazy" decoding="async" draggable="false" aria-hidden="true" />;
+  }
   const metal = `url(#${id}-metal)`, dark = `url(#${id}-dark)`, lens = `url(#${id}-lens)`;
   return <svg className={`interest-object object-${kind}`} viewBox="0 0 220 190" fill="none" stroke="#bdbdbd" strokeWidth="1.4" strokeLinejoin="round" aria-hidden="true">
     <defs>

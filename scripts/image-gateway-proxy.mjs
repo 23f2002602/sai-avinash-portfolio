@@ -3,7 +3,8 @@ import http from 'node:http';
 
 const upstream = process.env.IMAGE_GATEWAY_URL || 'https://portkey.syngenta.com/v1/';
 const provider = process.env.IMAGE_GATEWAY_PROVIDER || 'openai-aifoundry-swc-001';
-if (!process.env.OPENAI_API_KEY) throw new Error('Configure the gateway credential locally.');
+const gatewayKey = process.env.PORTKEY_API_KEY || process.env.OPENAI_API_KEY;
+if (!gatewayKey) throw new Error('Configure PORTKEY_API_KEY locally.');
 const server = http.createServer(async (req, res) => {
   try {
     const chunks = [];
@@ -16,7 +17,7 @@ const server = http.createServer(async (req, res) => {
       : Buffer.from(original.toString('latin1').replace(/(name="model"\r\n\r\n)gpt-image-2(?=\r\n)/, `$1@${provider}/gpt-image-2`), 'latin1');
     const response = await fetch(new URL(req.url.replace(/^\/v1\//, ''), upstream), {
       method: req.method,
-      headers: { 'content-type': req.headers['content-type'], authorization: `Bearer ${process.env.OPENAI_API_KEY}`, 'x-portkey-api-key': process.env.OPENAI_API_KEY },
+      headers: { 'content-type': req.headers['content-type'], 'x-portkey-api-key': gatewayKey },
       body,
       signal: AbortSignal.timeout(600000),
     });

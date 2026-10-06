@@ -1,4 +1,4 @@
-type Drawing = "study" | "people" | "build" | "next" | "assessment" | "placement" | "slides" | "crop";
+type Drawing = "study" | "people" | "build" | "next" | "assessment" | "placement" | "marketplace" | "crop";
 
 /** Deliberately irregular paths, pencil hatching and marginal notes. */
 export function InkDrawing({ kind, compact = false }: { kind: Drawing; compact?: boolean }) {
@@ -28,7 +28,7 @@ export function InkDrawing({ kind, compact = false }: { kind: Drawing; compact?:
       <text x="79" y="353" className="ink-hand ink-large">Syngenta</text><text x="81" y="383" className="ink-hand">data science, in practice.</text>
       <path d="M87 399Q173 391 258 399M96 406L225 403" opacity=".55" />
     </>}
-    {(kind === "build" || kind === "assessment" || kind === "placement" || kind === "slides") && <>
+    {(kind === "build" || kind === "assessment" || kind === "placement") && <>
       <g className="ink-paper" transform="rotate(-4 305 245)">
         <path d="M95 111Q102 99 115 103L489 112Q501 114 501 128L492 330L101 320Z" fill="var(--sketch-paper, #e7e7e2)" />
         <path d="M109 120L485 129L478 303L116 294Z" />
@@ -37,12 +37,58 @@ export function InkDrawing({ kind, compact = false }: { kind: Drawing; compact?:
         <path d="M111 147L483 155" opacity=".55" /><path d="M125 135L130 135M141 136L146 136M157 137L162 137" strokeWidth="3" />
         {kind === "assessment" ? <><text x="142" y="188" className="ink-hand">more than a score</text><path className="ink-stroke" d="M158 230L168 238L185 214M158 267L168 275L185 251M205 229L421 235M204 266L353 271" /><path d="M389 256L432 257L431 281L389 280Z" /></>
         : kind === "placement" ? <><text x="140" y="189" className="ink-hand">a place for everyone</text><path className="ink-stroke" d="M156 214L240 215L239 266L153 265ZM340 218L435 222L433 271L337 270M248 241L325 244M315 234L326 244L313 254" /><text x="166" y="247" className="ink-hand">student</text><text x="344" y="251" className="ink-hand">company</text></>
-        : kind === "slides" ? <><path d="M144 175L205 177L204 270L143 268M223 178L451 185L447 279L222 272Z" /><path d="M154 194L192 195M154 210L187 211M154 233L190 234" /><text x="263" y="216" className="ink-hand">an idea,</text><text x="278" y="246" className="ink-hand">in slides.</text></>
         : <><text x="144" y="190" className="ink-hand">from a rough idea...</text><path className="ink-stroke" d="M149 215L237 218M149 234L269 238M149 255L217 258M305 209L447 215L445 281L303 276ZM320 260L345 239L369 253L423 229" /></>}
       </g>
-      <text x="124" y="78" className="ink-hand">make it. break it. try again.</text><path className="ink-stroke" d="M454 69Q514 63 528 113M513 104L529 117L534 98" />
+      <text x="124" y="78" className="ink-hand">{compact ? "Structured workflows" : "make it. break it. try again."}</text><path className="ink-stroke" d="M454 69Q514 63 528 113M513 104L529 117L534 98" />
       <path d="M183 397Q289 388 422 398M212 405Q294 399 384 406" opacity=".3" />
-      <text x="212" y="438" className="ink-hand">a work in progress</text>
+      <text x="212" y="438" className="ink-hand">{compact ? "Implemented in code" : "a work in progress"}</text>
+    </>}
+    {kind === "marketplace" && <>
+      <g className="ink-paper" transform="rotate(-3 300 230)">
+        <path d="M104 87Q98 85 96 97L92 338Q91 347 103 348L490 352Q501 353 502 342L506 103Q506 94 496 93Z" fill="var(--sketch-paper, #e7e7e2)" />
+        <path d="M96 118L505 124" opacity=".5" />
+        <path d="M112 104L116 104M127 105L131 105M142 105L146 105" strokeWidth="3" />
+        <text x="355" y="113" className="ink-hand">Team185</text>
+        <rect x="116" y="139" width="237" height="29" rx="14" />
+        <circle cx="132" cy="151" r="5" /><path d="M136 155L141 160" />
+        <path d="M153 153L250 155" opacity=".35" />
+        <rect x="368" y="141" width="112" height="29" rx="14" />
+        <path d="M382 151L435 152M382 158L419 158M454 151L459 156L464 151" opacity=".65" />
+        <g>
+          <rect x="116" y="186" width="110" height="142" rx="5" />
+          <rect x="123" y="193" width="96" height="81" rx="3" fill="currentColor" fillOpacity=".04" stroke="none" />
+          <path className="ink-stroke" d="M138 216L151 216L158 206L178 207L184 217L204 218L203 255L138 254ZM145 224L150 224M187 225L195 225" />
+          <circle cx="172" cy="235" r="14" /><circle cx="172" cy="235" r="9" opacity=".5" />
+          <text x="130" y="301" className="ink-hand">₹ 1,200</text>
+          <path d="M130 315L183 315" opacity=".3" />
+        </g>
+        <g>
+          <rect x="243" y="188" width="110" height="142" rx="5" />
+          <rect x="250" y="195" width="96" height="81" rx="3" fill="currentColor" fillOpacity=".04" stroke="none" />
+          <path className="ink-stroke" d="M279 207Q295 202 316 208L314 241L280 240ZM278 242L318 244L319 250L277 249ZM283 250L279 264M311 251L315 265" />
+          <path d="M287 215L307 215M287 224L307 224M291 254L291 263M303 254L303 263" opacity=".4" />
+          <text x="257" y="303" className="ink-hand">₹ 850</text>
+          <path d="M257 317L310 317" opacity=".3" />
+        </g>
+        <g>
+          <rect x="370" y="190" width="110" height="142" rx="5" />
+          <rect x="377" y="197" width="96" height="81" rx="3" fill="currentColor" fillOpacity=".04" stroke="none" />
+          <path className="ink-stroke" d="M394 213L439 207L452 216L407 223ZM394 213L395 236L408 243L453 237L452 216M407 223L408 243M395 241L387 246L402 255L453 250L454 241M387 246L388 257L402 265L454 260L453 250M402 255L402 265" />
+          <path d="M415 228L445 224M416 234L445 230M412 259L445 255" opacity=".4" />
+          <text x="384" y="305" className="ink-hand">₹ 300</text>
+          <path d="M384 319L423 319" opacity=".3" />
+        </g>
+      </g>
+      <g className="ink-loose" transform="rotate(7 491 355)">
+        <path d="M447 327L462 329L474 371L529 371L539 340L466 338" fill="var(--sketch-paper, #e7e7e2)" />
+        <path d="M480 347L485 361M496 347L499 361M512 347L513 361M474 371L471 380L530 380" />
+        <circle cx="483" cy="390" r="5" /><circle cx="520" cy="390" r="5" />
+        <circle cx="530" cy="322" r="14" fill="var(--sketch-paper, #e7e7e2)" /><text x="524" y="329" className="ink-hand">2</text>
+      </g>
+      <text x="132" y="63" className="ink-hand">a second life for good things.</text>
+      <path className="ink-stroke" d="M116 373C116 413 167 417 183 383M168 389L183 380L188 397" />
+      <path d="M132 386L147 384M128 393L153 390M134 400L151 398" opacity=".3" />
+      <text x="211" y="417" className="ink-hand">list. find. reuse.</text>
     </>}
     {kind === "next" && <>
       <g className="ink-paper" transform="rotate(-7 300 244)"><path d="M105 132L478 144L469 355L100 342Z" fill="var(--sketch-paper, #e7e7e2)" /><path className="ink-stroke" d="M108 139L287 279L475 150M103 335L237 239M466 348L335 245" /><path d="M105 132L293 264L478 144" /><text x="172" y="202" className="ink-hand ink-large">say hello.</text></g>

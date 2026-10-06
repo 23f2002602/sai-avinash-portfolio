@@ -1,0 +1,21 @@
+{
+  "model": "gpt-image-2",
+  "quality": "high",
+  "size": "3840x2160",
+  "background": "Uniform flat #00FF00 chroma background. No green tint, green reflections, floor, gradient, scenery, cast shadow, lettering, numbers, logos, watermarks or people.",
+  "reference": "public/avinash-3d/coffee.webp",
+  "sharedStyle": "Use case: product-mockup. Asset type: interactive portfolio interest icon. Image 1 is a supporting lighting and realism reference, not an edit target. Create one premium realistic 3D studio object with a strong instantly readable silhouette. Use a consistent three-quarter view, camera height, scale and soft warm key light from the upper left. Materials should combine midnight-blue matte surfaces, warm cream enamel, brushed silver metal and one restrained caramel detail. Center the complete object, occupy about 58 percent of canvas width and 72 percent of canvas height, preserve generous clean padding on every edge, and align its visual base consistently. Physically credible geometry, refined bevels, subtle material texture, clean highlights, excellent antialiasing and production-quality detail suitable for a 4K portfolio. No additional props.",
+  "assets": [
+    { "name": "tech", "prompt": "A slim open laptop with a midnight-blue aluminum shell and brushed-silver edges. The screen shows only a few abstract cream code-line shapes and two simple angle-bracket glyphs; no readable words, logos or keyboard lettering." },
+    { "name": "business", "prompt": "A structured executive briefcase in midnight-blue leather with brushed-silver frame, realistic handle mounts and one small caramel clasp. Closed, self-contained and slightly angled; no papers or labels." },
+    { "name": "editing", "prompt": "A professional cinema clapperboard with midnight-blue body, cream diagonal slate stripes, brushed-metal hinge and a subtle raised play triangle. No writing, timecode, numbering or extra film equipment." },
+    { "name": "design", "prompt": "A slim professional pen-display tablet on a small angled stand with a brushed-silver stylus resting across it. The dark display has one elegant cream bezier curve with visible control points, but no text or interface labels." },
+    { "name": "photo", "prompt": "A compact premium mirrorless still camera with midnight-blue magnesium body, brushed-silver controls, a large realistic glass lens and one caramel shutter accent. No branding, lettering, strap or extra lens." },
+    { "name": "video", "prompt": "A compact professional cinema camera with a realistic large lens, small side monitor, top handle and midnight-blue body with brushed-silver rig details. Clearly distinct from a still camera; no branding, lettering, cables or tripod." },
+    { "name": "writing", "prompt": "An open warm-cream hardbound notebook with subtly ruled blank pages and a refined midnight-blue fountain pen resting diagonally. Visible paper grain and brushed-silver pen trim; no handwriting or printed words." },
+    { "name": "cooking", "prompt": "A premium warm-cream enamel saucepan with midnight-blue handles and lid knob, brushed-silver rim and two very subtle steam wisps. Complete cookware silhouette; no food, utensils or stove." },
+    { "name": "travel", "prompt": "A refined desktop globe with midnight-blue oceans, warm-cream land masses, brushed-silver meridian and base, plus one small caramel paper-plane accent orbiting close to it. No place names or map labels." },
+    { "name": "finance", "prompt": "A small stack of brushed-metal coins beside a freestanding midnight-blue chart tile with one clean rising caramel line and arrow. No currency symbols, digits, words or loose coins." },
+    { "name": "economics", "prompt": "A precise miniature balance scale in brushed silver with midnight-blue base, paired with one small warm-cream analysis tile showing two abstract intersecting caramel curves. No currency symbols, digits, words or coins." }
+  ]
+}

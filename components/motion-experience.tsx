@@ -35,7 +35,7 @@ export function MotionExperience({ children }: { children: ReactNode }) {
         observer.unobserve(entry.target);
       });
     }, { threshold: .12 });
-    root.current.querySelectorAll(".chapter h2, .project-card, .experience-row, .leadership-item, .skills-block, [data-reveal]").forEach(el => observer.observe(el));
+    root.current.querySelectorAll(".chapter h2, .project-card, .experience-row, .leadership-item, .skills-block h3, [data-reveal]").forEach(el => observer.observe(el));
 
     const visibility = () => {
       if (!root.current) return;
@@ -45,7 +45,7 @@ export function MotionExperience({ children }: { children: ReactNode }) {
     const loops = new IntersectionObserver(entries => entries.forEach(entry => {
       (entry.target as HTMLElement).dataset.motionVisible = String(entry.isIntersecting);
     }));
-    root.current.querySelectorAll(".story-strip, .curiosity-universe, .project-sculpture, .project-sketch, .coffee-act").forEach(el => loops.observe(el));
+    root.current.querySelectorAll(".curiosity-universe, .project-sketch, .coffee-act, .experience-section, [data-motion-surface]").forEach(el => loops.observe(el));
     document.addEventListener("visibilitychange", visibility);
     visibility();
 

@@ -3,7 +3,6 @@ import "./globals.css";
 import "./story.css";
 import "./notebook.css";
 import "./maximal.css";
-import "./curiosity.css";
 import "./drink-journey.css";
 
 export const metadata: Metadata = {

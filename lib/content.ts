@@ -118,13 +118,12 @@ export const projects = [
   },
   {
     number: "03",
-    title: "Gyaan Deck",
-    eyebrow: "AI × productivity",
+    title: "Team185 — Odoo Hackathon",
+    eyebrow: "Web app × Odoo Hackathon",
     description:
-      "A tool that turns long text into a styled PowerPoint deck, with reusable templates and a bring your own key workflow.",
-    tags: ["Presentations", "LLMs", "Web app"],
-    href: "https://github.com/23f2002602/PPT-generator",
-    live: "https://ppt-generator-vert.vercel.app",
+      "A second-hand marketplace built with Team185 for the Odoo Hackathon, featuring searchable listings, category filters, listing management, and a shopping cart.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Hackathon"],
+    href: "https://github.com/23f2002602/Team185",
     kind: "standard",
   },
   {

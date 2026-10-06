@@ -7,6 +7,9 @@ import { ProjectGallery } from "@/components/project-gallery";
 import { CuriosityAtlas } from "@/components/curiosity-atlas";
 import { CoffeeJourney } from "@/components/coffee-journey";
 import { PhotoHero } from "@/components/photo-hero";
+import { MusicMotif, Waveform } from "@/components/music-motif";
+import { ExplorePaths } from "@/components/explore-paths";
+import styles from "./page.module.css";
 import {
   experience,
   leadership,
@@ -40,23 +43,26 @@ export default function Home() {
         <a className="header-contact" href={`mailto:${profile.email}`}>Let&apos;s talk <span aria-hidden="true">↗</span></a>
       </header>
 
-      <main id="top">
+      <main id="top" className={styles.portfolio}>
         <PhotoHero />
         <div className="coke-act">
         <AvinashStory />
 
-        <div className="story-strip" aria-hidden="true">
-          <div className="story-marquee">{[0, 1].map(copy => <div key={copy}><span>People</span><b>✳</b><span>Systems</span><b>✳</b><span>Stories</span><b>✳</b><span>Always in motion</span><b>✳</b></div>)}</div>
+        <div className={styles.interlude}>
+          <span className="micro">A little fizz. A lot of curiosity.</span>
+          <a href="#curiosity">Find his frequency <span aria-hidden="true">↓</span></a>
         </div>
 
+        <ExplorePaths />
         <CuriosityAtlas />
 
-        <section className="chapter about-section" id="about" aria-labelledby="about-title">
-          <ChapterLabel number="01" name="The Observer" />
+        <section className={`chapter about-section ${styles.musicSection}`} id="about" aria-labelledby="about-title" data-motion-surface>
+          <ChapterLabel number="01" name="Track 01 / The Observer" />
           <div className="about-top">
             <div>
               <p className="section-eyebrow">Every story starts with someone</p>
               <h2 id="about-title">Still learning.<br /><em>Still doing.</em></h2>
+              <MusicMotif />
             </div>
             <div className="about-copy">
               <p className="large-copy">Avinash wants to be a polymath. For now, he’s following his curiosity and putting in the practice.</p>
@@ -75,11 +81,12 @@ export default function Home() {
         </section>
 
         <section className="chapter experience-section" id="experience" aria-labelledby="experience-title">
-          <ChapterLabel number="02" name="The Operator" />
+          <ChapterLabel number="02" name="Track 02 / The Operator" />
           <div className="section-split-heading">
             <h2 id="experience-title">His questions<br /><em>left the classroom.</em></h2>
             <p>Working with startups brought him into conversations with clients, teams, and founders. Here&apos;s where that journey has taken him.</p>
           </div>
+          <div className={styles.trackDivider} aria-hidden="true"><span>Finding a rhythm in the real world</span><Waveform /></div>
           <div className="experience-list">
             {experience.map((item) => (
               <article className="experience-row" key={item.organization}>
@@ -92,25 +99,24 @@ export default function Home() {
         </section>
 
         </div>
-        <div className="drink-handoff" id="coffee">
-          <p className="micro">Act II / From a little fizz to a slower ritual</p>
-          <h2>That hit the spot.<br />Now, <em>let’s make coffee.</em></h2>
-          <p>Also a coffee addict. Some things need a little more time.<br />The next few chapters come with a cup in the making.</p>
+        <div className={styles.handoff} id="coffee" data-reveal>
+          <p className="micro">The next ritual / Focus, patience, craft</p>
+          <h2>From finding a rhythm<br />to <em>making something.</em></h2>
+          <p>Good work takes focus. Good coffee takes a little time.<br />Follow the work, with a cup in the making.</p>
           <a href="#work">Follow the brew <span aria-hidden="true">↓</span></a>
-          <span className="handoff-mark" aria-hidden="true">fizz<br /><i>to foam.</i></span>
         </div>
         <CoffeeJourney>
         <section className="chapter work-section" id="work" aria-labelledby="work-title" data-coffee-step="0">
           <ChapterLabel number="03" name="The Builder" />
           <div className="work-heading">
-            <div><p className="section-eyebrow">Ideas became projects</p><h2 id="work-title">So he started<br /><em>building things.</em></h2></div>
-            <p>He explores what software can do for assessment, placements, presentations, and agriculture. These projects are part of that exploration.</p>
+            <div><p className="section-eyebrow">Selected work / Software with a purpose</p><h2 id="work-title">Applications<br /><em>he’s built.</em></h2></div>
+            <p>Candidate assessments. Placement workflows. A second-hand marketplace built with his hackathon team. Purpose-built software, with the implementation behind it.</p>
           </div>
           <div data-coffee-step="1"><ProjectGallery /></div>
-          <a className="all-work-link" data-coffee-step="2" href="https://github.com/23f2002602" target="_blank" rel="noopener noreferrer">See the full GitHub archive <span aria-hidden="true">↗</span></a>
+          <a className="all-work-link" href="https://github.com/23f2002602" target="_blank" rel="noopener noreferrer">See the full GitHub archive <span aria-hidden="true">↗</span></a>
         </section>
 
-        <section className="chapter leadership-section" id="leadership" aria-labelledby="leadership-title" data-coffee-step="3">
+        <section className="chapter leadership-section" id="leadership" aria-labelledby="leadership-title" data-coffee-step="2">
           <ChapterLabel number="04" name="The Connector" />
           <div className="leadership-layout">
             <div className="leadership-photo-wrap">
@@ -131,7 +137,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="skills-block">
+          <div className="skills-block" data-coffee-step="3">
             <div><p className="section-eyebrow">Things he picked up along the way</p><h3>A growing toolkit.</h3></div>
             <div className="skills-grid">
               {skills.map((group) => (
@@ -162,7 +168,7 @@ export default function Home() {
         </section>
         </CoffeeJourney>
       </main>
-      <footer className="site-footer"><span>© {new Date().getFullYear()} Sai Avinash</span><span>Built with curiosity, from Chennai.</span><a href="#top">Back to top ↑</a></footer>
+      <footer className={`site-footer ${styles.footer}`}><span>© {new Date().getFullYear()} Sai Avinash</span><span>Built with curiosity, from Chennai.</span><a href="#top">Back to top ↑</a></footer>
     </MotionExperience>
   );
 }

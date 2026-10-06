@@ -9,7 +9,7 @@ import styles from "./avinash-story.module.css";
 const scenes = [
   { name: "The classroom", title: "A lot of", emphasis: "questions.", caption: "He joined IIT Madras in 2023 to study Data Science. Statistics, code, and plenty of things to figure out along the way.", note: "BS in Data Science / IIT Madras" },
   { name: "At work", title: "Learning", emphasis: "by doing.", caption: "Research and outreach at Gaara AI. Startup operations at Ments. And now, a Data Science internship at Syngenta.", note: "A few stops along the way" },
-  { name: "The projects", title: "Things", emphasis: "he’s made.", caption: "A placement portal, an assessment platform, a slide generator. A few of his ideas have made it out of the notebook.", note: "PlaceMe / InternAssess / Gyaan Deck" },
+  { name: "The projects", title: "Things", emphasis: "he’s made.", caption: "He built PlaceMe for placement workflows and InternAssess for structured candidate assessment, and worked with Team185 on a second-hand marketplace for the Odoo Hackathon.", note: "PlaceMe / InternAssess / Team185" },
   { name: "On campus", title: "Away from", emphasis: "the laptop.", caption: "Editing videos, designing graphics, taking photos, writing, cooking, travelling. There’s a lot he wants to try, and he’s making time for it.", note: "IIT Madras / and life outside it" },
   { name: "Say hello", title: "Have an", emphasis: "idea?", caption: "Finance and economics are next on his learning list. In the meantime, he’s building, creating, and open to a good conversation.", note: "A good place to start" },
 ] as const;

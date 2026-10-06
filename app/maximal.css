@@ -33,30 +33,6 @@
 .story-marquee { animation-duration: 20s; }
 .story-marquee span { font-family: var(--sans); font-size: clamp(28px, 4vw, 58px); font-weight: 800; letter-spacing: -.055em; }
 .story-marquee b { font-size: 45px; animation: poster-turn 22s linear infinite; }
-.chapter { position: relative; padding-top: 85px; padding-bottom: 90px; border-bottom: 1px solid #8885; }
-.chapter-label { position: relative; padding: 16px 0 16px 80px; border-block: 1px solid currentColor; margin-bottom: 55px; min-height: 64px; }
-.chapter-label::before { content: attr(data-number); position: absolute; left: 0; top: -7px; font: 800 68px/1 var(--sans); letter-spacing: -.09em; }
-.chapter h2 { font-size: clamp(54px, 7.1vw, 110px); font-weight: 800; letter-spacing: -.075em; line-height: .96; }
-.chapter h2 em { font-size: .95em; line-height: 1.1; }
-.section-eyebrow { display: inline-block; border: 1px solid currentColor; padding: 7px 12px; transform: rotate(-2deg); }
-.notes-grid { gap: 12px; }
-.note-card { border: 1px solid #333; box-shadow: 4px 4px 0 #222; padding: 24px; }
-.note-card:nth-child(2), .note-card:nth-child(5) { background: #191919; color: #eee; }
-.note-card:nth-child(2) .note-detail, .note-card:nth-child(5) .note-detail { color: #bbb; }
-.note-short { font-family: var(--sans); font-weight: 600; letter-spacing: -.055em; }
-.note-plus { font-size: 27px; }
-.experience-row { border-bottom: 1px solid #ffffff60; padding-block: 30px; }
-.experience-main h3 { font-weight: 800; font-size: clamp(40px, 5vw, 76px); letter-spacing: -.07em; }
-.experience-index { border-left: 2px solid #eee; padding-left: 12px; }
-.projects-grid { grid-template-columns: 1.12fr 1fr; gap: 22px; }
-.project-card { border: 1px solid #333; min-height: 650px; box-shadow: 7px 7px 0 #222; }
-.project-card:nth-child(even) { margin-top: 45px; }
-.project-top { border-bottom: 1px solid currentColor; padding-bottom: 15px; }
-.project-top > span:last-child { font-size: 35px; }
-.project-sketch { height: 240px; margin: -5px -25px 5px; }
-.project-body h3 { font-size: clamp(41px, 4.8vw, 74px); font-weight: 800; line-height: 1; }
-.project-explore { background: #eee; color: #111; }
-.tag-list span { border-radius: 0; }
 .poster-interlude { position: relative; isolation: isolate; overflow: hidden; background: #111; color: #eee; padding: 36px 5vw 50px; }
 .interlude-type { display: flex; flex-direction: column; position: relative; z-index: 1; padding: 60px 0; font: 800 clamp(52px, 11.5vw, 180px)/.87 var(--sans); letter-spacing: -.075em; }
 .interlude-type > span:last-child { align-self: flex-end; font-size: .68em; }
@@ -66,14 +42,6 @@
 .interlude-hand { font: 28px var(--hand); transform: rotate(-3deg); }
 .interlude-foot a { font: 11px var(--mono); padding: 12px 0; text-decoration: underline; text-underline-offset: 6px; }
 .interlude-foot a span { margin-left: 20px; font-size: 24px; }
-.leadership-photo-wrap { border: 10px solid #111; transform: rotate(-3deg); box-shadow: 10px 10px 0 #aaa; }
-.leadership-layout { gap: 7vw; }
-.skills-block { border-top: 3px solid #222; }
-.skills-block h3 { font-size: clamp(40px, 4vw, 66px); }
-.skill-group li { border-bottom: 1px solid #1113; padding-bottom: 6px; }
-.contact-main h2 { font-size: clamp(60px, 8.5vw, 132px); }
-.contact-email { font-weight: 600; border-bottom-width: 3px; padding-block: 15px; }
-.contact-bottom { border-top: 1px solid #111; padding-top: 30px; }
 .social-grid a { border-bottom: 1px solid #888; padding-block: 6px; }
 @keyframes poster-type-in { from { opacity: 0; translate: 50px 0; } to { opacity: 1; translate: 0 0; } }
 @keyframes poster-turn { to { rotate: 360deg; } }
@@ -83,9 +51,6 @@
   .poster-stamp strong { font-size: 15px; }
   .poster-stamp span { font-size: 6px; }
   .story-narration h1 { font-size: 76px; }
-  .chapter h2 { font-size: clamp(50px, 7vw, 80px); }
-  .projects-grid { gap: 18px; }
-  .project-body h3 { font-size: 44px; }
 }
 @media (max-width: 760px) {
   .brand { font-size: 34px; }
@@ -106,18 +71,6 @@
   .scene-paper .story-caption { max-width: 38ch; }
   .story-atmosphere { background: linear-gradient(0deg, #090909 13%, #090909ed 28%, #09090955 57%, transparent 83%); }
   .story-strip { min-height: 80px; }
-  .chapter { padding-top: 60px; padding-bottom: 65px; }
-  .chapter-label { padding-left: 60px; min-height: 55px; margin-bottom: 40px; }
-  .chapter-label::before { font-size: 53px; top: 0; }
-  .chapter-label .micro { font-size: 8px; }
-  .chapter h2 { font-size: clamp(44px, 10.5vw, 72px); }
-  .notes-grid { grid-template-columns: 1fr; }
-  .note-card { min-height: 165px; }
-  .projects-grid { grid-template-columns: 1fr; gap: 25px; }
-  .project-card:nth-child(even) { margin-top: 0; }
-  .project-card { min-height: 580px; }
-  .project-body h3 { font-size: clamp(39px, 10vw, 66px); }
-  .project-sketch { height: 210px; }
   .poster-interlude { padding: 28px 6vw 35px; }
   .poster-interlude > .micro { font-size: 8px; }
   .interlude-type { padding: 55px 0; font-size: 15.4vw; }
@@ -125,8 +78,6 @@
   .interlude-foot { flex-direction: column; align-items: start; gap: 15px; }
   .interlude-hand { font-size: 24px; }
   .interlude-mark { font-size: 290px; top: -30px; right: -30px; }
-  .leadership-photo-wrap { max-width: 92%; margin-left: 2%; }
-  .contact-main h2 { font-size: clamp(48px, 11.5vw, 85px); }
 }
 @media (max-width: 760px) and (max-height: 700px) {
   .story-narration { bottom: 108px; }

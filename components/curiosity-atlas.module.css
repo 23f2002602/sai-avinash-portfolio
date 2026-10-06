@@ -1,0 +1,456 @@
+/* Repeating the local root keeps these rules above the legacy global hooks. */
+.atlas.atlas {
+  --midnight: #182c47;
+  --cream: #fff1d8;
+  --caramel: #d5a36e;
+  position: relative;
+  isolation: isolate;
+  background: var(--midnight);
+  color: var(--cream);
+  padding: 96px var(--layout-inset) 48px;
+  overflow: clip;
+  font-family: var(--sans, sans-serif);
+}
+
+.atlas.atlas .intro {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: end;
+  gap: 0 7vw;
+  padding: 0;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.atlas.atlas .eyebrow {
+  grid-column: 1 / -1;
+  margin: 0 0 28px;
+  color: var(--caramel);
+  font: 10px/1.6 var(--mono, monospace);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.atlas.atlas .intro h2 {
+  margin: 0;
+  color: var(--cream);
+  font: 600 clamp(52px, 6.3vw, 100px)/1.04 var(--sans, sans-serif);
+  letter-spacing: -.065em;
+}
+
+.atlas.atlas .intro h2 em {
+  color: var(--caramel);
+  font-family: var(--serif, serif);
+  font-weight: 400;
+}
+
+.atlas.atlas .aside {
+  grid-column: 1;
+  margin: 18px 0 0;
+  color: var(--caramel);
+  font: 500 18px/1.5 var(--sans, sans-serif);
+  transform: none;
+}
+
+.atlas.atlas .copy {
+  grid-column: 2;
+  grid-row: 2 / 4;
+  max-width: 35ch;
+  margin: 0 0 10px;
+  padding-left: 24px;
+  border-left: 1px solid var(--caramel);
+  color: #e4d7c3;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.atlas.atlas .universe {
+  position: relative;
+  display: block;
+  height: 800px;
+  max-width: 1280px;
+  margin: 64px auto 0;
+  isolation: isolate;
+}
+
+.atlas.atlas .thread {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--caramel);
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.atlas.atlas .thread path {
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+
+.atlas.atlas .thread .connection { opacity: .2; }
+.atlas.atlas .thread .activeConnection {
+  stroke-width: 2;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.atlas.atlas .thread .activeConnection[data-active="true"] { opacity: .95; }
+
+.atlas.atlas .center {
+  position: absolute;
+  top: 30%;
+  left: 32%;
+  width: 36%;
+  padding: 22px 24px;
+  z-index: 3;
+  background: var(--cream);
+  color: var(--midnight);
+  border: 1px solid #d5a36e80;
+  border-radius: 20px;
+  box-shadow: 0 10px 0 #0e20352e;
+  backdrop-filter: none;
+}
+
+.atlas.atlas .detailHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.atlas.atlas .detailTitle { min-width: 0; }
+.atlas.atlas .frequency {
+  margin: 0;
+  color: #795332;
+  font: 9px/1.6 var(--mono, monospace);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.atlas.atlas .frequency span {
+  display: block;
+  color: #536074;
+  font-size: 8px;
+  letter-spacing: .04em;
+}
+
+.atlas.atlas .center h3 {
+  margin: 8px 0 0;
+  color: var(--midnight);
+  font: 500 clamp(28px, 2.8vw, 42px)/1.08 var(--serif, serif);
+  letter-spacing: -.04em;
+  overflow-wrap: break-word;
+}
+
+.atlas.atlas .detailCopy {
+  margin: 16px 0 0;
+  max-width: none;
+  min-height: 72px;
+  color: #34445a;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.atlas.atlas .hand {
+  display: block;
+  margin: 8px 0 0;
+  color: #795332;
+  font: 500 14px/1.5 var(--sans, sans-serif);
+  transform: none;
+}
+
+.atlas.atlas .dial {
+  position: relative;
+  flex: 0 0 102px;
+  width: 102px;
+  height: 102px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.atlas.atlas .dialFallback {
+  position: absolute;
+  inset: 27%;
+  border-radius: 50%;
+  background: #182c47;
+  border: 4px solid #a9a195;
+  box-shadow: inset 0 0 0 2px #536074;
+}
+.atlas.atlas .dialControl { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; pointer-events: auto; touch-action: pan-y; }
+.atlas.atlas .dial:focus-within { outline: 2px solid #182c47; outline-offset: 3px; border-radius: 50%; }
+.atlas.atlas .dialHint { display: block; margin-top: 8px; color: #536074; font: 10px/1.5 var(--sans); }
+
+.atlas.atlas .dialImage {
+  position: absolute;
+  inset: 14%;
+  display: block;
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+}
+
+.atlas.atlas .dialScale {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  stroke: #a77b51;
+  stroke-width: 1.5;
+}
+.atlas.atlas .dialScale circle { opacity: .3; }
+.atlas.atlas .dialScale line[data-active="true"] {
+  stroke: var(--midnight);
+  stroke-width: 3;
+}
+
+.atlas.atlas .pointer {
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  transform: rotate(var(--dial-angle));
+  transition: transform 200ms ease;
+}
+.atlas.atlas .pointer::before {
+  content: "";
+  position: absolute;
+  top: 9%;
+  left: calc(50% - 1.5px);
+  width: 3px;
+  height: 30%;
+  border-radius: 3px;
+  background: var(--cream);
+  box-shadow: 0 0 0 1px var(--midnight);
+}
+
+.atlas.atlas .objects {
+  position: relative;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.atlas.atlas .item {
+  position: absolute;
+  left: var(--orbit-left);
+  top: var(--orbit-top);
+  right: auto;
+  bottom: auto;
+  width: 15%;
+  min-height: 44px;
+  padding: 0 5px 10px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--cream);
+  cursor: pointer;
+  pointer-events: auto;
+  text-align: center;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+.atlas.atlas .item:focus-visible {
+  outline: 2px solid var(--cream);
+  outline-offset: 4px;
+}
+
+.atlas.atlas .objectWrap {
+  position: relative;
+  display: block;
+  height: 160px;
+  transform: rotate(var(--lean));
+  transition: transform 200ms ease;
+  filter: none;
+}
+.atlas.atlas .objectWrap > :is(svg, img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  translate: none;
+  rotate: none;
+  filter: none;
+  animation: none;
+  animation-play-state: paused;
+}
+.atlas.atlas .objectWrap > img { object-fit: contain; scale: 1.3; }
+.atlas.atlas .objectWrap > svg path { animation: none; }
+.atlas.atlas .item[aria-pressed="true"] .objectWrap { transform: translateY(-2px) rotate(0deg); }
+.atlas.atlas .item:hover .objectWrap,
+.atlas.atlas .item:focus-visible .objectWrap {
+  transform: translateY(-4px) rotate(0deg) scale(1.03);
+  filter: none;
+}
+
+.atlas.atlas .channel {
+  display: block;
+  margin: 4px 0 6px;
+  color: var(--caramel);
+  font: 8px/1.5 var(--mono, monospace);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.atlas.atlas .label {
+  display: inline-block;
+  padding: 3px 2px 5px;
+  border-bottom: 1px solid transparent;
+  color: #e4d7c3;
+  font: 500 16px/1.3 var(--sans, sans-serif);
+  transition: opacity 200ms ease;
+}
+.atlas.atlas .item[aria-pressed="true"] .label {
+  color: var(--cream);
+  border-color: var(--caramel);
+}
+.atlas.atlas .item:hover .label { color: var(--cream); }
+.atlas.atlas .next {
+  display: block;
+  margin: 6px 0 0;
+  color: var(--caramel);
+  font: 7px/1.5 var(--mono, monospace);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.atlas.atlas .footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  max-width: 1280px;
+  margin: 24px auto 0;
+  border-top: 1px solid #fff1d833;
+  padding: 28px 0 0;
+}
+.atlas.atlas .footer > span {
+  color: var(--caramel);
+  font: 500 18px/1.5 var(--sans, sans-serif);
+  max-width: 24ch;
+}
+.atlas.atlas .footer p {
+  margin: 0;
+  color: #e4d7c3;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.atlas.atlas .footer a {
+  padding: 12px 0;
+  min-height: 44px;
+  color: var(--cream);
+  border-bottom: 1px solid var(--caramel);
+  font: 10px/1.8 var(--mono, monospace);
+  text-decoration: none;
+}
+.atlas.atlas .footer a:focus-visible {
+  outline: 2px solid var(--cream);
+  outline-offset: 5px;
+}
+
+.atlas.atlas[data-motion-active="true"] .item[aria-pressed="true"] .objectWrap > :is(svg, img) { animation-play-state: running; }
+.atlas.atlas[data-motion-enabled="false"] .objectWrap > :is(svg, img) { animation: none; }
+.atlas.atlas[data-motion-active="false"] .objectWrap,
+.atlas.atlas[data-motion-active="false"] .pointer,
+.atlas.atlas[data-motion-active="false"] .label,
+.atlas.atlas[data-motion-active="false"] .activeConnection { transition: none; }
+.atlas.atlas[data-motion-active="false"] .item .objectWrap { transform: none; }
+
+@keyframes frequencyDrift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Only the selected tool is live: motion communicates its function. */
+.atlas.atlas .thread .signal { stroke: var(--cream); stroke-width: 3; stroke-dasharray: 5 95; opacity: 0; }
+.atlas.atlas[data-motion-active="true"] .signal[data-active="true"] { opacity: .9; animation: tuneSignal 2.4s linear infinite; }
+@keyframes tuneSignal { from { stroke-dashoffset: -100; } to { stroke-dashoffset: 0; } }
+.atlas.atlas .objectEffect { position: absolute; inset: 33% 28%; pointer-events: none; opacity: 0; border-radius: 50%; }
+.atlas.atlas[data-motion-active="true"] .item[aria-pressed="true"] [data-object-action="shutter"] .objectEffect { background: #fff1d8; animation: shutter 4s infinite; }
+.atlas.atlas[data-motion-active="true"] .item[aria-pressed="true"] [data-object-action="draw"] .objectEffect { inset: 60% 25% 35%; background: var(--caramel); transform-origin: left; border-radius: 2px; animation: drawLine 3s ease-in-out infinite; }
+.atlas.atlas[data-motion-active="true"] .item[aria-pressed="true"] [data-object-action="build"] .objectEffect { inset: 65% 22% 30%; background: var(--caramel); transform-origin: left; animation: drawLine 3s ease-in-out infinite; }
+.atlas.atlas[data-motion-active="true"] .item[aria-pressed="true"] [data-object-action="play"] > :is(img, svg) { animation: framePan 4s ease-in-out infinite; }
+.atlas.atlas[data-motion-active="true"] .item[aria-pressed="true"] [data-object-action="travel"] > :is(img, svg) { animation: globeTurn 5s ease-in-out infinite; }
+.atlas.atlas[data-motion-active="true"] .item[aria-pressed="true"] [data-object-action="balance"] > :is(img, svg) { animation: balance 4s ease-in-out infinite; }
+.atlas.atlas[data-motion-active="true"] .item[aria-pressed="true"] [data-object-action="warm"] .objectEffect { inset: 20% 47% 48%; border-left: 2px solid var(--cream); animation: warm 3s ease-out infinite; }
+@keyframes shutter { 0%, 8%, 100% { opacity: 0; scale: .6; } 3% { opacity: .7; scale: 1; } }
+@keyframes drawLine { 0%, 100% { opacity: 0; scale: 0 1; } 25%, 70% { opacity: .7; scale: 1 1; } }
+@keyframes framePan { 0%, 100% { transform: translateX(-3px) rotate(-1deg); } 50% { transform: translateX(3px) rotate(1deg); } }
+@keyframes globeTurn { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+@keyframes balance { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+@keyframes warm { 0%, 100% { opacity: 0; transform: translateY(0); } 40% { opacity: .5; } 80% { opacity: 0; transform: translateY(-14px); } }
+.atlas.atlas .tuneControls { display: flex; align-items: center; gap: 8px; border-top: 1px solid #182c4724; margin-top: 18px; padding-top: 10px; }
+.atlas.atlas .tuneControls button { flex: none; width: 44px; height: 44px; border: 1px solid #182c4730; border-radius: 50%; background: transparent; color: var(--midnight); cursor: pointer; font: 18px var(--sans); }
+.atlas.atlas .tuneControls a { flex: 1; color: var(--midnight); font: 500 12px/1.5 var(--sans); text-align: center; padding: 8px 0; }
+.atlas.atlas .tuneControls :is(a, button):focus-visible { outline: 2px solid var(--midnight); outline-offset: 3px; }
+.atlas.atlas[data-motion-active="false"] .objectWrap > :is(img, svg),
+.atlas.atlas[data-motion-active="false"] .objectEffect,
+.atlas.atlas[data-motion-active="false"] .signal { animation-play-state: paused; }
+.atlas.atlas[data-motion-enabled="false"] .objectEffect,
+.atlas.atlas[data-motion-enabled="false"] .signal { display: none; }
+
+@media (max-width: 1100px) {
+  .atlas.atlas .universe { height: 740px; }
+  .atlas.atlas .objectWrap { height: 130px; }
+  .atlas.atlas .center { left: 28%; width: 46%; padding: 20px; }
+  .atlas.atlas .detailCopy { font-size: 14px; min-height: 72px; }
+  .atlas.atlas .label { font-size: 14px; }
+}
+
+@media (max-width: 760px) {
+  .atlas.atlas { padding: 60px var(--layout-inset) 35px; }
+  .atlas.atlas .intro { display: block; padding: 0; }
+  .atlas.atlas .eyebrow { font-size: 8px; margin-bottom: 22px; }
+  .atlas.atlas .intro h2 { font-size: clamp(43px, 10.8vw, 76px); }
+  .atlas.atlas .aside { font-size: 16px; margin: 16px 0 24px; }
+  .atlas.atlas .copy { font-size: 14px; max-width: 45ch; padding-left: 16px; margin: 0; }
+  .atlas.atlas .universe { display: flex; flex-direction: column; height: auto; margin-top: 32px; }
+  .atlas.atlas .thread { display: none; }
+  .atlas.atlas .center {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: none;
+  }
+  .atlas.atlas .detailHeader { gap: 12px; }
+  .atlas.atlas .dial { flex-basis: 76px; width: 76px; height: 76px; }
+  .atlas.atlas .center h3 { font-size: 30px; margin: 6px 0 0; }
+  .atlas.atlas .frequency { font-size: 8px; }
+  .atlas.atlas .detailCopy { min-height: 0; font-size: 13px; line-height: 1.65; margin: 12px 0 0; }
+  .atlas.atlas .hand { font-size: 13px; margin-top: 10px; }
+  .atlas.atlas .objects {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px 8px;
+    height: auto;
+    padding: 28px 0;
+    align-items: start;
+  }
+  .atlas.atlas .item { position: relative; inset: auto; width: 100%; padding: 0 2px 10px; }
+  .atlas.atlas .objectWrap { height: 100px; }
+  .atlas.atlas .channel { font-size: 7px; margin: 3px 0; }
+  .atlas.atlas .label { font-size: 12px; line-height: 1.35; min-height: 38px; padding: 4px 0; }
+  .atlas.atlas .next { font-size: 6px; letter-spacing: .03em; margin-top: 4px; }
+  .atlas.atlas .footer { display: block; padding: 24px 0 0; }
+  .atlas.atlas .footer > span { font-size: 16px; }
+  .atlas.atlas .footer p { margin: 18px 0 12px; }
+  .atlas.atlas .footer a { display: inline-block; }
+}
+
+@media (max-width: 370px) {
+  .atlas.atlas .center { padding: 14px; }
+  .atlas.atlas .dial { flex-basis: 64px; width: 64px; height: 64px; }
+  .atlas.atlas .center h3 { font-size: 26px; }
+  .atlas.atlas .objectWrap { height: 82px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atlas.atlas .objectWrap > :is(svg, img) { animation: none; }
+  .atlas.atlas .objectWrap,
+  .atlas.atlas .pointer,
+  .atlas.atlas .label,
+  .atlas.atlas .activeConnection { transition: none; }
+  .atlas.atlas .item .objectWrap { transform: none; }
+}
