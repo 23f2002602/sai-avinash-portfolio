@@ -28,7 +28,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
-        <link rel="preload" as="image" href="/avinash-portrait.jpg" />
       </head>
       <body>{children}</body>
     </html>

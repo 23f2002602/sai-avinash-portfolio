@@ -1,0 +1,25 @@
+.hero { background: #fff1d8; color: #332721; padding: clamp(32px, 5vw, 72px) var(--layout-inset, 6vw); }
+.inner { max-width: 1280px; margin: auto; display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+.copy { padding-block: 24px; }
+.kicker { color: #865a43; margin: 0 0 32px; }
+.copy h1 { font: 700 clamp(64px, 8vw, 124px)/1.02 var(--sans); letter-spacing: -.065em; margin: 0; }
+.copy h1 em { font-family: var(--serif); font-weight: 400; color: #bc3e2e; }
+.caption { font-size: clamp(17px, 1.6vw, 22px); line-height: 1.7; max-width: 37ch; margin: 32px 0; }
+.links { display: flex; flex-wrap: wrap; gap: 16px 28px; }
+.links a { font-size: 13px; padding-block: 12px; border-bottom: 1px solid #89563f66; transition: color 200ms; }
+.links a:hover { color: #bc3e2e; }
+.links span { margin-left: 20px; }
+.footnote { margin: 48px 0 0; color: #865a43; font-size: 9px; }
+.portrait { margin: 0; position: relative; }
+.portrait img { width: 100%; height: min(72svh, 760px); min-height: 420px; object-fit: cover; object-position: 50% 35%; border-radius: 140px 140px 8px 8px; }
+.portrait figcaption { display: flex; justify-content: space-between; gap: 12px; padding-top: 16px; font: 12px var(--sans); color: #865a43; }
+@media (max-width: 760px) {
+  .inner { grid-template-columns: 1fr; gap: 24px; }
+  .portrait { grid-row: 1; }
+  .portrait img { height: 53svh; min-height: 320px; max-height: 520px; border-radius: 100px 100px 6px 6px; object-position: 50% 32%; }
+  .copy { padding-block: 8px 24px; }
+  .copy h1 { font-size: clamp(64px, 13vw, 94px); }
+  .kicker { margin-bottom: 20px; }
+  .caption { margin-block: 24px; }
+  .footnote { margin-top: 28px; }
+}

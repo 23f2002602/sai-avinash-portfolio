@@ -27,15 +27,27 @@ export function MotionExperience({ children }: { children: ReactNode }) {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         const animation = entry.target.animate([
-          { opacity: .15, transform: "translateY(58px) rotateX(8deg)", filter: "blur(5px)" },
-          { opacity: 1, transform: "translateY(0) rotateX(0)", filter: "blur(0)" },
-        ], { duration: 950, easing: "cubic-bezier(.16,1,.3,1)" });
+          { opacity: .3, transform: "translateY(18px)" },
+          { opacity: 1, transform: "translateY(0)" },
+        ], { duration: 600, easing: "cubic-bezier(.22,1,.36,1)" });
         animations.add(animation);
         animation.onfinish = () => animations.delete(animation);
         observer.unobserve(entry.target);
       });
     }, { threshold: .12 });
-    root.current.querySelectorAll(".chapter h2, .project-card, .experience-row, .leadership-item, .skills-block").forEach(el => observer.observe(el));
+    root.current.querySelectorAll(".chapter h2, .project-card, .experience-row, .leadership-item, .skills-block, [data-reveal]").forEach(el => observer.observe(el));
+
+    const visibility = () => {
+      if (!root.current) return;
+      root.current.dataset.tabVisible = String(!document.hidden);
+      animations.forEach(animation => document.hidden ? animation.pause() : animation.play());
+    };
+    const loops = new IntersectionObserver(entries => entries.forEach(entry => {
+      (entry.target as HTMLElement).dataset.motionVisible = String(entry.isIntersecting);
+    }));
+    root.current.querySelectorAll(".story-strip, .curiosity-universe, .project-sculpture, .project-sketch, .coffee-act").forEach(el => loops.observe(el));
+    document.addEventListener("visibilitychange", visibility);
+    visibility();
 
     let frame = 0;
     let previous: HTMLElement | null = null;
@@ -51,8 +63,8 @@ export function MotionExperience({ children }: { children: ReactNode }) {
         const rect = card.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width;
         const y = (event.clientY - rect.top) / rect.height;
-        card.style.setProperty("--tilt-x", `${(y - .5) * -9}deg`);
-        card.style.setProperty("--tilt-y", `${(x - .5) * 9}deg`);
+        card.style.setProperty("--tilt-x", `${(y - .5) * -3}deg`);
+        card.style.setProperty("--tilt-y", `${(x - .5) * 3}deg`);
         card.style.setProperty("--spot-x", `${x * 100}%`);
         card.style.setProperty("--spot-y", `${y * 100}%`);
       });
@@ -61,7 +73,8 @@ export function MotionExperience({ children }: { children: ReactNode }) {
     document.addEventListener("pointermove", move, { passive: true });
     document.addEventListener("pointerleave", exit);
     return () => {
-      observer.disconnect(); animations.forEach(animation => animation.cancel());
+      observer.disconnect(); loops.disconnect(); animations.forEach(animation => animation.cancel());
+      document.removeEventListener("visibilitychange", visibility);
       cancelAnimationFrame(frame); reset();
       document.removeEventListener("pointermove", move); document.removeEventListener("pointerleave", exit);
     };

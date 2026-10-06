@@ -20,7 +20,7 @@ export function CoffeeProcessArt({ step }: { step: number }) {
       <g className="loose-beans"><Bean x={375} y={199} angle={30} /><Bean x={401} y={285} angle={-45} /><Bean x={373} y={380} angle={65} /><Bean x={96} y={384} angle={30} /></g>
       <text x="336" y="100" fill="#553323" fontFamily="var(--hand)" fontSize="27" transform="rotate(9 336 100)">a handful.</text>
     </>}
-    {step === 1 && <g transform="translate(25 -8) scale(.75)"><MiniAvinash pose="grind" /></g>}
+    {step === 1 && <g transform="translate(25 0) scale(.75)"><MiniAvinash pose="grind" /></g>}
     {step === 2 && <>
       <path d="M176 313L184 424Q254 450 313 422L321 313Z" fill="#e9bb73" stroke="#563728" strokeWidth="3" />
       <path d="M317 328Q388 312 369 375Q354 396 313 391" stroke="#563728" strokeWidth="16" /><path d="M318 328Q380 318 365 372Q352 388 315 386" stroke="#e9bb73" strokeWidth="10" />
@@ -40,7 +40,7 @@ export function CoffeeProcessArt({ step }: { step: number }) {
         <ellipse className="milk-bloom" cx="239" cy="249" rx="36" ry="9" fill="#fce6bd" />
       </>}
       {step === 4 && <g className="coffee-spoon" stroke="#62442f" strokeWidth="3"><path d="M251 251L317 99" stroke="#f5d19e" strokeWidth="12" strokeLinecap="round" /><ellipse cx="248" cy="255" rx="13" ry="22" fill="#d1b589" transform="rotate(25 248 255)" /></g>}
-      {step === 5 && <g transform="translate(25 -8) scale(.75)"><MiniAvinash pose="coffee" /></g>}
+      {step === 5 && <g transform="translate(25 0) scale(.75)"><MiniAvinash pose="coffee" /></g>}
     </>}
   </svg>;
 }

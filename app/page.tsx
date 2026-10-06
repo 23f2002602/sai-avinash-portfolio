@@ -6,6 +6,7 @@ import { MotionExperience, MotionToggle } from "@/components/motion-experience";
 import { ProjectGallery } from "@/components/project-gallery";
 import { CuriosityAtlas } from "@/components/curiosity-atlas";
 import { CoffeeJourney } from "@/components/coffee-journey";
+import { PhotoHero } from "@/components/photo-hero";
 import {
   experience,
   leadership,
@@ -40,6 +41,7 @@ export default function Home() {
       </header>
 
       <main id="top">
+        <PhotoHero />
         <div className="coke-act">
         <AvinashStory />
 

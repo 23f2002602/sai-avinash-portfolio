@@ -63,21 +63,32 @@ export function SceneParticles({ scene, active, burst, surface }: Props) {
       });
     }
     const tick = (now: number) => {
+      frame = 0;
+      if (!settings.current.active || !visible || document.hidden) { last = 0; return; }
+      if (!last) last = now;
+      time += Math.min((now - last) / 1000, .05); last = now; draw();
       frame = requestAnimationFrame(tick);
-      if (!settings.current.active || !visible || document.hidden) { last = now; return; }
-      if (now - last < 40) return;
-      time += Math.min((now - last) / 1000, .08); last = now; draw();
+    };
+    const sync = () => {
+      if (settings.current.active && visible && !document.hidden) {
+        if (!frame) frame = requestAnimationFrame(tick);
+      } else { cancelAnimationFrame(frame); frame = 0; last = 0; }
     };
     const observer = new ResizeObserver(resize); observer.observe(host);
-    const intersection = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }); intersection.observe(host);
+    const intersection = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); }); intersection.observe(host);
+    const activity = new MutationObserver(sync);
+    const motionRoot = host.closest(".motion-experience");
+    if (motionRoot) activity.observe(motionRoot, { attributes: true, attributeFilter: ["data-motion"] });
+    document.addEventListener("visibilitychange", sync);
     host.addEventListener("pointermove", move, { passive: true });
     host.addEventListener("pointerdown", down);
     host.addEventListener("pointerleave", leave);
-    resize(); frame = requestAnimationFrame(tick);
+    resize(); sync();
     return () => {
-      cancelAnimationFrame(frame); observer.disconnect(); intersection.disconnect();
+      cancelAnimationFrame(frame); observer.disconnect(); intersection.disconnect(); activity.disconnect();
+      document.removeEventListener("visibilitychange", sync);
       host.removeEventListener("pointermove", move); host.removeEventListener("pointerdown", down); host.removeEventListener("pointerleave", leave);
     };
-  }, [surface]);
+  }, [surface, active]);
   return <canvas ref={canvas} className="scene-particles" aria-hidden="true" />;
 }

@@ -1,71 +1,56 @@
 import assert from 'node:assert/strict';
-import { writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { poses, viewports, allowPendingAssets, withBrowser, verifyAssets, verifyLayout, seekStory, seekCoffee } from './verify-story.mjs';
 
-const base = process.env.STORY_TEST_URL || 'http://localhost:3210';
-const target = await fetch(`http://127.0.0.1:9224/json/new?${encodeURIComponent(base)}`, { method: 'PUT' }).then(r => r.json());
-const socket = new WebSocket(target.webSocketDebuggerUrl);
-await new Promise(resolve => socket.addEventListener('open', resolve, { once: true }));
-let id = 0;
-const pending = new Map();
-const browserErrors = [];
-socket.addEventListener('message', event => {
-  const message = JSON.parse(event.data);
-  if (message.method === 'Runtime.exceptionThrown') browserErrors.push(message.params.exceptionDetails.exception?.description || message.params.exceptionDetails.text);
-  if (!message.id) return;
-  const task = pending.get(message.id);
-  pending.delete(message.id);
-  if (message.error) task.reject(new Error(message.error.message)); else task.resolve(message.result);
+// Verification only. The shared harness writes captures into a unique tmp folder.
+async function verifyAvatar(browser, selector, index, expectedPose, label, svg = false) {
+  const query = "document.querySelectorAll(" + JSON.stringify(selector) + ")[" + index + "]";
+  await browser.poll(`(() => { const image=${query}; return image instanceof HTMLImageElement ? image.complete && image.naturalWidth>0 : image instanceof SVGImageElement ? !!image.href.baseVal : ${allowPendingAssets} && image instanceof SVGGElement; })()`, label + ' avatar loads');
+  const image = await browser.evaluate(`(() => {
+    const image=${query},layer=image.closest('[data-story-layer],.coffee-art-layer'),r=image.getBoundingClientRect(),parent=layer.getBoundingClientRect();
+    const src=image instanceof HTMLImageElement ? image.currentSrc || image.src : image instanceof SVGImageElement ? image.href.baseVal : null;
+    return {tag:image.tagName.toLowerCase(),pose:image.dataset.pose,path:src ? new URL(src,location.href).pathname : null,width:r.width,height:r.height,left:r.left,right:r.right,top:r.top,bottom:r.bottom,parent:parent.toJSON(),opacity:Number(getComputedStyle(layer).opacity)};
+  })()`);
+  assert.equal(image.pose,expectedPose,label+' correct pose');
+  if (!allowPendingAssets) {
+    assert.equal(image.path,'/avinash-3d/'+expectedPose+'.webp',label+' approved raster asset');
+    assert.ok((svg ? ['image'] : ['img','image']).includes(image.tag),label+' raster image element');
+  } else assert.ok(['img','image','g'].includes(image.tag),label+' image or SVG rig');
+  assert.ok(image.width>20 && image.height>20 && image.opacity>.95,label+' visible avatar');
+  assert.ok(image.left>=image.parent.left-2 && image.right<=image.parent.right+2 && image.top>=image.parent.top-2 && image.bottom<=image.parent.bottom+2,label+' complete avatar fits layer');
+  assert.ok(image.left>=-1 && image.right<=(await browser.evaluate('innerWidth'))+1,label+' fits horizontally');
+  // Mobile coffee artwork is in normal flow below the sticky chapter navigation.
+  if (await browser.evaluate('innerHeight>599 && ' + (!svg ? 'true' : 'innerWidth>760'))) assert.ok(image.top>=-2 && image.bottom<=(await browser.evaluate('innerHeight'))+2,label+' complete avatar fits viewport');
+  await verifyLayout(browser,label);
+}
+
+await withBrowser(async browser => {
+  await verifyAssets(browser);
+  const storyPoses=['hold','open','sip','enjoy','wave'];
+  const seen=new Set();
+  assert.equal(await browser.evaluate("document.querySelectorAll('[data-story-layer] .mini-me[data-pose]').length"),5,'each story layer has one avatar');
+  for (const viewport of viewports) {
+    console.log('Checking avatars: '+viewport.name);
+    await browser.viewport(viewport);
+    for (let index=0;index<storyPoses.length;index++) {
+      await seekStory(browser,index);
+      await verifyAvatar(browser,'[data-story-layer] .mini-me[data-pose]',index,storyPoses[index],viewport.name+' story '+(index+1));
+      seen.add(storyPoses[index]);
+      if (viewport.name==='desktop') await browser.screenshot('avatar-story-'+storyPoses[index]);
+    }
+    // Other coffee stages depict beans/kettle/milk/spoon; these stages use avatars.
+    for (const [index,pose] of [[1,'grind'],[5,'coffee']]) {
+      await seekCoffee(browser,index);
+      await verifyAvatar(browser,'.coffee-art-layer[data-active=true] .mini-me[data-pose]',0,pose,viewport.name+' coffee '+(index+1),true);
+      seen.add(pose);
+    }
+    await browser.screenshot('avatar-coffee-'+viewport.name);
+  }
+  assert.deepEqual([...seen].sort(),[...poses].sort(),'all seven poses exercised in browser');
+  await browser.viewport(viewports[2]); await browser.media(true);
+  await seekStory(browser,2,true,true);
+  await verifyAvatar(browser,'[data-story-layer][data-active=true] .mini-me[data-pose]',0,'sip','reduced-motion story');
+  await seekCoffee(browser,1,true,true);
+  await verifyAvatar(browser,'.coffee-art-layer[data-active=true] .mini-me[data-pose]',0,'grind','reduced-motion coffee',true);
+  assert.deepEqual(await browser.evaluate("[...document.querySelectorAll('.mini-me')].flatMap(el=>el.getAnimations({subtree:true})).filter(animation=>animation.playState==='running' && animation.effect?.getTiming().iterations===Infinity).map(animation=>animation.animationName || 'infinite animation')"),[],'reduced motion stops avatar animation');
+  console.log('PASS: seven avatar poses, story and coffee layouts, six responsive viewports and reduced-motion keyboard navigation. ' + (allowPendingAssets ? '3D raster assets remain pending.' : 'Seven 1536x2048 WebP masters decoded.') + ' No public assets written.');
 });
-const send = (method, params = {}) => new Promise((resolve, reject) => { const key = ++id; pending.set(key, { resolve, reject }); socket.send(JSON.stringify({ id: key, method, params })); });
-const evaluate = async expression => {
-  const result = await send('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true });
-  if (result.exceptionDetails) throw new Error(result.exceptionDetails.text);
-  return result.result.value;
-};
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-const active = () => evaluate("document.querySelector('.story-timeline [aria-current]').getAttribute('aria-label')");
-const screenshot = async name => {
-  const data = await send('Page.captureScreenshot', { format: 'png' });
-  const path = join(tmpdir(), name);
-  await writeFile(path, Buffer.from(data.data, 'base64'));
-  console.log(path);
-};
-const scrollScene = async (index, fraction = .15) => {
-  await evaluate("(() => { const root = document.querySelector('.avinash-film'), stage = document.querySelector('.story-stage'); window.scrollTo({top: scrollY + root.getBoundingClientRect().top - parseFloat(getComputedStyle(stage).top) + (root.offsetHeight - stage.offsetHeight) * (" + index + " + " + fraction + ") / 6, behavior:'instant'}); })()");
-  await sleep(250);
-};
-try {
-  await send('Page.enable'); await send('Runtime.enable');
-  await send('Emulation.setDeviceMetricsOverride', {width:600,height:680,deviceScaleFactor:1,mobile:false});
-  await send('Emulation.setDefaultBackgroundColorOverride', {color:{r:0,g:0,b:0,a:0}});
-  await send('Page.navigate', {url:base+'/mini-avinash.svg'}); await sleep(400);
-  assert.equal(await evaluate("document.querySelector('.mini-me').dataset.pose"),'wave');
-  const png=await send('Page.captureScreenshot',{format:'png'});
-  await writeFile('public/mini-avinash.png',Buffer.from(png.data,'base64'));
-  await send('Emulation.setDefaultBackgroundColorOverride');
-  await send('Emulation.setDeviceMetricsOverride', {width:1440,height:1000,deviceScaleFactor:1,mobile:false});
-  await send('Page.navigate', {url:base}); await sleep(1500);
-  assert.equal(await evaluate("document.querySelector('main img').getAttribute('src')"),'/avinash-portrait.jpg');
-  for(const [scene,pose] of [[1,'hold'],[2,'open'],[3,'sip'],[4,'enjoy'],[5,'wave']]) {
-    await scrollScene(scene); await sleep(500);
-    assert.equal(await evaluate("document.querySelector('.coke-story-art .mini-me').dataset.pose"),pose);
-    assert.equal(await evaluate("document.querySelector('.coke-story-art .mini-me').getBoundingClientRect().bottom < innerHeight - 30"),true,'full mini-me fits the film frame');
-    if(scene===1||scene===3) await screenshot('avinash-mini-'+pose+'.png');
-  }
-  for(const [stage,pose] of [[1,'grind'],[5,'coffee']]) {
-    await evaluate("document.querySelectorAll('.brew-steps button')["+stage+"].click()"); await sleep(300);
-    assert.equal(await evaluate("document.querySelector('.coffee-process-art .mini-me').dataset.pose"),pose);
-    await screenshot('avinash-mini-'+pose+'.png');
-  }
-  await send('Emulation.setDeviceMetricsOverride', {width:390,height:844,deviceScaleFactor:1,mobile:true});
-  await sleep(250);
-  assert.equal(await evaluate('document.documentElement.scrollWidth <= innerWidth'),true);
-  await screenshot('avinash-mini-mobile.png');
-  await send('Emulation.setEmulatedMedia', {features:[{name:'prefers-reduced-motion',value:'reduce'}]}); await sleep(200);
-  assert.equal(await evaluate("getComputedStyle(document.querySelector('.coffee-process-art .mini-eyes')).animationName"),'none');
-  assert.equal(await evaluate("getComputedStyle(document.querySelector('.coffee-process-art .mini-me-body')).animationName"),'none');
-  assert.deepEqual(browserErrors,[]);
-  console.log('PASS: seven mini-me poses, opening portrait, mobile, reduced motion and SVG/PNG export.');
-} finally {socket.close(); await fetch('http://127.0.0.1:9224/json/close/' + target.id);}

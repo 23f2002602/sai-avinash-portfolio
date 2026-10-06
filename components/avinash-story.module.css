@@ -1,0 +1,60 @@
+.film { height: 500svh; position: relative; background: #bf3b2c; color: #fff1d8; scroll-margin-top: var(--film-header); }
+.stage { position: sticky; top: var(--header-height, 76px); height: calc(100svh - var(--header-height, 76px)); overflow: hidden; isolation: isolate; display: grid; grid-template-rows: auto 1fr auto; padding: 24px var(--layout-inset, 6vw); }
+.topline, .bottom { width: 100%; max-width: 1280px; margin-inline: auto; z-index: 3; }
+.topline { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.topline a { font-size: 12px; padding: 12px 0; }
+.layers { position: relative; min-height: 0; width: 100%; max-width: 1280px; margin: auto; height: 100%; }
+.layer { position: absolute; inset: 0; display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(24px, 4vw, 64px); align-items: center; opacity: var(--layer-opacity, 0); transform: translateY(var(--layer-y, 0px)); pointer-events: none; }
+.layer:first-child { --layer-opacity: 1; }
+.layer[data-active="true"] { pointer-events: auto; }
+.narration { z-index: 2; min-width: 0; }
+.note { color: #ffe0a5; font-size: 9px; margin: 0 0 24px; }
+.narration h2 { font: 700 clamp(42px, 5.9vw, 88px)/1.06 var(--sans); letter-spacing: -.06em; margin: 0; }
+.narration h2 em { font-family: var(--serif); font-weight: 400; }
+.caption { font-size: clamp(16px, 1.4vw, 20px); line-height: 1.7; max-width: 39ch; margin: 24px 0 0; }
+.read { display: inline-block; font-size: 12px; padding: 12px 0; margin-top: 16px; border-bottom: 1px solid #ffe0a577; }
+.visual { height: 100%; min-height: 0; max-height: 650px; position: relative; display: grid; place-items: center; }
+.visual :global(.coke-story-art) { position: absolute; inset: 0; width: 100%; height: 100%; max-height: 100%; overflow: visible; }
+.particles { position: absolute; inset: 15% 5% 15% 55%; z-index: -1; pointer-events: none; }
+.bottom { display: grid; grid-template-columns: 1fr minmax(280px, 480px) 1fr; gap: 24px; align-items: center; padding-top: 16px; border-top: 1px solid #ffe0a544; }
+.direction { font-size: 8px; }
+.timeline { display: flex; gap: 12px; }
+.timeline button { flex: 1; color: #ffe4bd; font: 9px var(--mono); min-height: 52px; padding: 8px 0; }
+.timeline button[aria-current] { color: white; }
+.track { display: block; height: 2px; background: #ffe0a533; margin-bottom: 8px; }
+.track span { display: block; height: 100%; background: #ffe0a5; transform-origin: left; }
+.ripple { justify-self: end; border: 0; color: inherit; background: none; font-size: 11px; padding: 12px 0; min-height: 44px; }
+.ripple:disabled { opacity: .6; cursor: default; }
+.film[data-visible="false"] *, .film[data-tab-visible="false"] *, .layer[data-active="false"] * { animation-play-state: paused !important; }
+@media (max-width: 760px) {
+  .stage { padding-block: 12px; }
+  .topline .micro { font-size: 8px; }
+  .topline a { font-size: 10px; }
+  .layer { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; gap: 12px; padding-block: 8px 20px; }
+  .visual { grid-row: 1; width: 100%; height: 100%; max-height: none; overflow: hidden; }
+  .narration { grid-row: 2; }
+  .narration h2 { font-size: clamp(34px, 8vw, 54px); }
+  .note { margin-bottom: 12px; font-size: 8px; }
+  .caption { font-size: 14px; line-height: 1.6; margin-top: 14px; max-width: 44ch; }
+  .read { margin-top: 4px; }
+  .bottom { grid-template-columns: 1fr auto; gap: 12px; padding-top: 6px; }
+  .timeline { grid-column: 1; grid-row: 1; }
+  .direction { display: none; }
+  .ripple { grid-column: 2; grid-row: 1; max-width: 70px; font-size: 9px; }
+  .particles { inset: 10% 15% 45%; }
+}
+@media (min-width: 761px) and (max-height: 760px) {
+  .narration h2 { font-size: clamp(40px, 5vw, 66px); }
+  .caption { font-size: 16px; margin-top: 20px; }
+}
+@media (max-height: 599px) {
+  .film { height: auto; }
+  .stage { position: relative; top: 0; height: auto; overflow: visible; }
+  .layers { height: auto; display: grid; }
+  .layer { position: relative; opacity: 1 !important; transform: none !important; grid-template-columns: 1.2fr 1fr; grid-template-rows: auto; padding-block: 40px; border-bottom: 1px solid #ffe0a544; min-height: 360px; }
+  .narration, .visual { grid-row: auto; }
+  .visual { height: 300px; max-height: 300px; overflow: hidden; }
+  .visual :global(.coke-story-art) { height: 300px; max-height: 300px; }
+  .bottom { position: relative; }
+  .particles { display: none; }
+}
